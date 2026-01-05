@@ -24,7 +24,7 @@ function App() {
     const API_BASE = import.meta.env.VITE_API_URL || 'https://api-call.coepi.co';
 
     try {
-      const response = await fetch(`${API_BASE}/api/missed-call`, {
+      const response = await fetch('https://api-call.coepi.co/api/missed-call', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,17 +1,18 @@
 :root {
   --bg-color: #f0f2f5;
-  --phone-border: #333;
   --blue-bubble: #007aff;
-  --gray-bubble: #e5e5ea;
 }
 
-body {
+/* 1. Prevent Horizontal Scroll Globally */
+body,
+html {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  /* The nuclear option for white bars */
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
-  /* Fix vertical scrolling issue */
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
 .container {
@@ -21,23 +22,22 @@ body {
   justify-content: center;
   width: 100%;
   max-width: 1000px;
+  min-height: 100vh;
   padding: 20px;
   margin: 0 auto;
   box-sizing: border-box;
-  flex-wrap: wrap;
-  /* Allows stacking on mobile */
+  /* Ensures padding doesn't add width */
 }
 
 /* --- CONTROLS --- */
 .controls {
   flex: 1;
   min-width: 300px;
-  /* Prevents it from getting too squished */
   background: white;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  z-index: 2;
+  z-index: 10;
 }
 
 .scenario-selector {
@@ -52,7 +52,6 @@ select {
   border: 1px solid #ccc;
   font-size: 16px;
   background: white;
-  /* Fix for some mobile browsers */
 }
 
 .call-btn {
@@ -65,23 +64,17 @@ select {
   cursor: pointer;
   width: 100%;
   font-weight: bold;
-  transition: transform 0.1s;
-}
-
-.call-btn:active {
-  transform: scale(0.98);
+  margin-bottom: 10px;
 }
 
 .call-btn:disabled {
   background: #ccc;
-  cursor: not-allowed;
 }
 
 .reset-btn {
   background: transparent;
   color: #666;
   border: 1px solid #ddd;
-  margin-top: 10px;
   padding: 8px;
   width: 100%;
   border-radius: 8px;
@@ -96,17 +89,16 @@ select {
   border-radius: 8px;
   font-family: monospace;
   font-size: 0.8rem;
-  min-height: 100px;
   overflow-x: auto;
-  /* Allow code logs to scroll internally */
 }
 
-/* --- IPHONE CHASSIS --- */
+/* --- IPHONE WRAPPER --- */
 .phone-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  /* Prevent it from being crushed */
+  min-width: 320px;
 }
 
 .iphone {
@@ -117,7 +109,6 @@ select {
   padding: 12px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   position: relative;
-  /* Prevent interaction issues */
   flex-shrink: 0;
 }
 
@@ -143,7 +134,7 @@ select {
   position: relative;
 }
 
-/* --- SCREEN STATES --- */
+/* SCREEN STATES */
 .home {
   background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
   height: 100%;
@@ -161,7 +152,6 @@ select {
 
 .widgets {
   margin-top: 20px;
-  font-size: 0.9rem;
   opacity: 0.8;
 }
 
@@ -178,7 +168,6 @@ select {
 
 .avatar {
   font-size: 4rem;
-  margin-bottom: 10px;
 }
 
 .incoming h2 {
@@ -187,12 +176,7 @@ select {
   margin: 0;
 }
 
-.incoming p {
-  color: #888;
-}
-
 .slide-to-answer {
-  color: white;
   animation: pulse 2s infinite;
 }
 
@@ -209,7 +193,6 @@ select {
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
   color: #007aff;
   font-weight: 500;
 }
@@ -273,25 +256,26 @@ select {
   }
 }
 
-/* --- MOBILE RESPONSIVE FIXES --- */
-@media (max-width: 768px) {
+/* --- MOBILE RESPONSIVE FIX --- */
+@media (max-width: 900px) {
   .container {
     flex-direction: column-reverse;
-    /* Put phone on top, controls below */
-    padding: 10px;
+    /* Put controls UNDER phone */
+    justify-content: flex-end;
+    padding-top: 40px;
     gap: 20px;
   }
 
   .controls {
     width: 100%;
-    padding: 20px;
+    min-width: auto;
   }
 
-  .iphone {
-    /* Scale down slightly to fit narrow screens */
-    transform: scale(0.9);
-    transform-origin: center top;
+  .phone-wrapper {
+    width: 100%;
+    min-width: auto;
+    /* Scale down the phone to fit width */
+    transform: scale(0.85);
     margin-bottom: -40px;
-    /* Remove gap caused by scaling */
   }
 }
