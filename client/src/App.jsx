@@ -21,7 +21,7 @@ function App() {
   const handleMissedCallLogic = async () => {
     // 3. Call our Python Backend
     // USE THE ENV VARIABLE (Or fallback to localhost for testing)
-    const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const API_BASE = import.meta.env.VITE_API_URL || 'https://api-call.coepi.co';
 
     try {
       const response = await fetch(`${API_BASE}/api/missed-call`, {
@@ -54,7 +54,7 @@ function App() {
     <div className="container">
       {/* --- LEFT: CONTROL PANEL --- */}
       <div className="controls">
-        <h1>Missed Call Bot 🤖</h1>
+        <h2>Missed Call Bot</h2>
         <p>Simulate a missed call to see how the Python backend responds.</p>
 
         <div className="scenario-selector">
