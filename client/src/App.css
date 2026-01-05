@@ -17,10 +17,9 @@ html {
 .container {
   display: flex;
   flex-direction: row;
-  /* Desktop: Side by side */
+  /* Desktop default */
   gap: 60px;
   align-items: flex-start;
-  /* Align top */
   justify-content: center;
   width: 100%;
   max-width: 1000px;
@@ -33,12 +32,15 @@ html {
 /* --- CONTROLS --- */
 .controls {
   flex: 1;
-  min-width: 320px;
+  min-width: 300px;
+  /* reduced slightly */
   background: white;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   z-index: 10;
+  /* Ensure it doesn't overflow parent */
+  max-width: 100%;
 }
 
 .scenario-selector {
@@ -53,7 +55,7 @@ html {
   margin-bottom: 5px;
 }
 
-/* FIX FOR INVISIBLE DROPDOWN */
+/* DROPDOWN STYLING */
 select {
   width: 100%;
   padding: 12px;
@@ -61,13 +63,9 @@ select {
   border: 1px solid #ccc;
   font-size: 16px;
   background-color: #ffffff;
-  /* Force white bg */
   color: #333333;
-  /* Force dark text */
   appearance: none;
-  /* Remove native OS styling */
   -webkit-appearance: none;
-  /* Add a custom arrow so it still looks like a dropdown */
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 12px top 50%;
@@ -109,7 +107,16 @@ select {
   border-radius: 8px;
   font-family: monospace;
   font-size: 0.8rem;
-  overflow-x: auto;
+  /* CRITICAL FIXES: */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Force JSON text to wrap instead of pushing width out */
+.backend-logs pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
 }
 
 /* --- IPHONE WRAPPER --- */
@@ -117,8 +124,7 @@ select {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* Ensure it doesn't overlap controls */
-  min-width: 320px;
+  min-width: 300px;
 }
 
 .iphone {
@@ -285,28 +291,27 @@ select {
     align-items: center;
     gap: 40px;
     padding-bottom: 80px;
-    /* Extra space at bottom for scrolling */
+    overflow: hidden;
+    /* Prevent child overflow */
   }
 
   .controls {
     width: 100%;
     min-width: auto;
-    /* Ensure no horizontal overflow */
     max-width: 100%;
   }
 
   .phone-wrapper {
     width: 100%;
+    /* Ensure phone stays centered */
     display: flex;
     justify-content: center;
-    /* Ensure no horizontal overflow */
-    overflow: visible;
+    margin-left: 0;
   }
 
   .iphone {
-    /* Scale down just enough to fit nicely */
+    /* Scale down safely */
     transform: scale(0.9);
     margin: 0;
-    /* Remove negative margins that cause shifting */
   }
 }
