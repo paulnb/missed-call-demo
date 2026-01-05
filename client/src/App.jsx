@@ -20,8 +20,11 @@ function App() {
 
   const handleMissedCallLogic = async () => {
     // 3. Call our Python Backend
+    // USE THE ENV VARIABLE (Or fallback to localhost for testing)
+    const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
     try {
-      const response = await fetch('http://localhost:8000/api/missed-call', {
+      const response = await fetch(`${API_BASE}/api/missed-call`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
