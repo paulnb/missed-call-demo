@@ -4,8 +4,6 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install dependencies
-COPY requirements.txt .
-# If you don't have a requirements.txt yet, we can install directly:
 RUN pip install fastapi uvicorn
 
 COPY . .
